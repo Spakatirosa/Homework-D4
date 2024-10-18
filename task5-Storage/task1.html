@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bouncing Ball Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+        main {
+            padding: 2rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 20px auto;
+        }
+        canvas {
+            border: 1px solid #000;
+        }
+    </style>
+</head>
+<body>
+
+<main>
+    <h1>Bouncing Ball Game</h1>
+    <canvas id="gameCanvas" width="500" height="400"></canvas>
+</main>
+
+<script>
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+
+    let x = canvas.width / 2; // Ball's x position
+    let y = canvas.height / 2; // Ball's y position
+    let radius = 15; // Ball's radius
+    let dx = 2; // Change in x (velocity in x)
+    let dy = 2; // Change in y (velocity in y)
+    
+    // Function to generate a random color
+    function randomColor() {
+        const letters = '0123456789ABCDEF';
+        let color = '#';
+        for (let i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    }
+
+    // Main drawing function
+    function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
+        ctx.beginPath(); // Start a new path
+        ctx.arc(x, y, radius, 0, Math.PI * 2); // Draw the ball
+        ctx.fillStyle = randomColor(); // Fill color
+        ctx.fill(); // Fill the ball
+        ctx.closePath(); // Close the path
+
+        // Bounce the ball off the walls
+        if (x + dx > canvas.width - radius || x + dx < radius) {
+            dx = -dx; // Reverse direction
+        }
+        if (y + dy > canvas.height - radius || y + dy < radius) {
+            dy = -dy; // Reverse direction
+        }
+
+        x += dx; // Update x position
+        y += dy; // Update y position
+
+        requestAnimationFrame(draw); // Call draw again for the next frame
+    }
+
+    draw(); // Start the drawing process
+</script>
+
+</body>
+</html>
