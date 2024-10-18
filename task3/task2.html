@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Media Controls Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+        main {
+            padding: 2rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 20px auto;
+        }
+        .controls {
+            margin-top: 1rem;
+        }
+        button {
+            margin: 0 5px;
+            padding: 5px 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        input[type="range"] {
+            margin: 0 5px;
+        }
+    </style>
+</head>
+<body>
+
+<main>
+    <h1>My Favorite Hobby: Painting</h1>
+
+    <section>
+        <h2>YouTube Video</h2>
+        <video id="myVideo" width="560" height="315" controls style="display:none;">
+            <source src="video.mp4" type="video/mp4"> <!-- Replace with your video file -->
+            Your browser does not support the video tag.
+        </video>
+        <iframe 
+            id="videoFrame"
+            width="560" 
+            height="315" 
+            src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+            title="YouTube video player" 
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen>
+        </iframe>
+        
+        <div class="controls">
+            <button onclick="playVideo()">Play</button>
+            <button onclick="pauseVideo()">Pause</button>
+            <input type="range" id="videoVolume" min="0" max="1" step="0.1" onchange="setVideoVolume(this.value)" value="1">
+        </div>
+    </section>
+
+    <section>
+        <h2>Audio Clip</h2>
+        <audio id="myAudio" controls>
+            <source src="audio_clip.mp3" type="audio/mpeg"> <!-- Replace with your audio file -->
+            Your browser does not support the audio element.
+        </audio>
+
+        <div class="controls">
+            <button onclick="playAudio()">Play</button>
+            <button onclick="pauseAudio()">Pause</button>
+            <input type="range" id="audioVolume" min="0" max="1" step="0.1" onchange="setAudioVolume(this.value)" value="1">
+        </div>
+    </section>
+</main>
+
+<script>
+    // Video controls
+    const video = document.getElementById('myVideo');
+    const videoFrame = document.getElementById('videoFrame');
+
+    function playVideo() {
+        videoFrame.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+    }
+
+    function pauseVideo() {
+        videoFrame.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+    }
+
+    function setVideoVolume(value) {
+        // Note: Volume control is not supported in embedded YouTube videos
+        console.log("YouTube video volume control not supported.");
+    }
+
+    // Audio controls
+    const audio = document.getElementById('myAudio');
+
+    function playAudio() {
+        audio.play();
+    }
+
+    function pauseAudio() {
+        audio.pause();
+    }
+
+    function setAudioVolume(value) {
+        audio.volume = value;
+    }
+</script>
+
+</body>
+</html>
