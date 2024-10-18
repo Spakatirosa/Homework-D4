@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Media Embedding Example</title>
+    <title>Canvas Drawing Example</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -20,40 +20,41 @@
             max-width: 600px;
             margin: 20px auto;
         }
-        video, audio {
-            width: 100%;
-            border-radius: 4px;
-            margin-top: 1rem;
+        canvas {
+            border: 1px solid #000;
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
 
 <main>
-    <h1>My Favorite Hobby: Painting</h1>
-
-    <section>
-        <h2>YouTube Video</h2>
-        <iframe 
-            width="560" 
-            height="315" 
-            src="https://youtu.be/8dma41qAT7c" 
-            title="YouTube video player" 
-            frameborder="0" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-            allowfullscreen>
-        </iframe>
-
-    </section>
-
-    <section>
-        <h2>Audio Clip</h2>
-        <audio controls>
-            <source src="audio_clip.mp3" type="audio/mpeg">
-            Your browser does not support the audio element.
-        </audio>
-    </section>
+    <h1>Basic Shapes on Canvas</h1>
+    <canvas id="myCanvas" width="400" height="400"></canvas>
 </main>
+
+<script>
+    const canvas = document.getElementById('myCanvas');
+    const ctx = canvas.getContext('2d');
+
+    // Draw a rectangle
+    ctx.fillStyle = '#FF5733'; // Fill color for the rectangle
+    ctx.fillRect(50, 50, 150, 100); // x, y, width, height
+
+    // Draw a circle
+    ctx.fillStyle = '#33FF57'; // Fill color for the circle
+    ctx.beginPath(); // Start a new path
+    ctx.arc(300, 100, 50, 0, Math.PI * 2); // x, y, radius, startAngle, endAngle
+    ctx.fill(); // Fill the circle
+
+    // Draw a line
+    ctx.strokeStyle = '#3357FF'; // Color for the line
+    ctx.lineWidth = 5; // Line width
+    ctx.beginPath(); // Start a new path
+    ctx.moveTo(50, 200); // Starting point of the line
+    ctx.lineTo(350, 300); // Ending point of the line
+    ctx.stroke(); // Draw the line
+</script>
 
 </body>
 </html>
